@@ -1,6 +1,7 @@
 .\"
-.\" Copyright (c) 2022, KusaReMKN.
-.\" All rights reserved.
+.\" SPDX short identifier: BSD-2-Clause
+.\"
+.\" Copyright (c) 2022 KusaReMKN.  All rights reserved.
 .\"
 .\" Redistribution and use in source and binary forms, with or without
 .\" modification, are permitted provided that the following conditions are met:
@@ -10,9 +11,6 @@
 .\" 2. Redistributions in binary form must reproduce the above copyright
 .\"    notice, this list of conditions and the following disclaimer in the
 .\"    documentation and/or other materials provided with the distribution.
-.\" 3. Neither the name of the copyright holder nor the names of its
-.\"    contributors may be used to endorse or promote products derived from this
-.\"    software without specific prior written permission.
 .\"
 .\" THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 .\" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
@@ -26,7 +24,7 @@
 .\" ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 .\" POSSIBILITY OF SUCH DAMAGE.
 .\"
-.Dd 21th February 2022
+.Dd 24th February 2022
 .Dt L2WOL 1
 .Os
 .Sh NAME
@@ -38,24 +36,29 @@
 .Op Fl i Ar interface
 .Ar destination ...
 .Sh DESCRIPTION
+The
 .Nm
-wakes up
+utility wakes up
 .Ar destination Ns No s
 by despatching Wake-on-LAN magic packets on Layer 2.
-Naturally, the
+Obviously,
 .Ar destination Ns No s
-needs to support Wake-on-LAN technology.
-Packets will be despatched from
+need to support Wake-on-LAN technology.
+Packets will be despatched from the first available network interface found,
+or from
 .Ar interface
-or the first available network interface found.
+if the
+.Fl i
+option is specified.
 If the
 .Fl b
-is specified,
+option is specified,
 packets will be broadcast.
 .Sh FILES
 .Bl -tag -width "/dev/bpf" -compact
 .It Pa /dev/bpf
 Berkeley Packet Filter
+.Pq Bx No Only
 .El
 .Sh EXIT STATUS
 .Ex -std
@@ -65,7 +68,7 @@ The command:
 .Dl % l2wol 00:00:5e:00:53:01
 .Pp
 will wakes up the computer has a network interface with MAC address
-.Li 00:00:5e:00:53:01 .
+.Ql 00:00:5e:00:53:01 .
 .Pp
 The command:
 .Pp
@@ -74,15 +77,45 @@ The command:
 will despatch magic packets from the network interface named
 .Ql em0 .
 .Sh SEE ALSO
-.Xr ethers 3 ,
 .Xr getifaddrs 3 ,
-.Xr bpf 4 ,
 .Xr ifconfig 8
-.Sh AUTHORS
-.An KusaReMKN Aq Lk https://kusaremkn.com/
+.Pp
+.Xr ethers 3 ,
+.Xr bpf 4 ,
+.In net/if_dl.h
+on FreeBSD
+.Pp
+.Xr ether_aton 3 ,
+.Xr packet 7
+on Linux
+.Sh COPYRIGHT
+Copyright \(co 2022 KusaReMKN.
+All rights reserved.
+.Pp
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+.Bl -enum
+.It
+Redistributions of source code must retain the above copyright notice, this
+list of conditions and the following disclaimer.
+.It
+Redistributions in binary form must reproduce the above copyright notice, this
+list of conditions and the following disclaimer in the documentation and/or
+other materials provided with the distribution.
+.El
+.Pp
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+.Dq AS IS
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 .Sh BUGS
-The source code is not compatible with Linux.
-MAC addresses separated by a dash instead of a colon,
-as used in MS-Windows
-.Pq e.g. Li 00-00-5e-00-53-01 ,
+MAC addresses separated by a dash instead of a colon
+.Pq e.g. Ql 00-00-5e-00-53-01
 are not supported.

@@ -18,9 +18,11 @@ l2wol [-b] [-i interface] destination ...
 
 ## Note
 
-:warning: The source code is not compatible with Linux.
+:warning:
+I believe this program can be compiled on FreeBSD, OpenBSD, NetBSD and Linux,
+but I am not certain.
 
 
 ## License
 
-BSD-3-Clause
+BSD-2-Clause
